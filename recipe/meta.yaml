@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/snowexsql-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/snowexsql-{{ version }}.tar.gz
   sha256: f94948aab57ed1488049f5d947c3d1f7bc4b998c7ec083d2c4d62278971e5e0b
 
 build:
@@ -14,14 +14,14 @@ build:
     - clear_dataset=snowexsql.cli:clear_dataset
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - utm >=0.5.0,<1.0
     - geoalchemy2 >=0.6,<1.0
     - geopandas >=0.7,<2.0
@@ -36,6 +36,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/SnowEx/snowexsql
